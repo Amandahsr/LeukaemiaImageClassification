@@ -1,4 +1,4 @@
-
+##This script imports datasets from the Leukemia Classification challenge directly from Kaggle into Google Colab.
 ! pip install -q kaggle
 
 #Upload API token file downloaded from Kaggle
