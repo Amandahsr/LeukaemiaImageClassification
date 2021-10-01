@@ -5,8 +5,9 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 def augmentation(img):
-    img = torch.from_numpy(img).type(torch.DoubleTensor)
+    img = torch.from_numpy(img).type(torch.DoubleTensor) # change dtype from numpy to tensor
     img = torch.moveaxis(img, -1, 0)
+    # data augmentation step: rotate, offset X/Y axis, size
     affine_transformer = transforms.RandomAffine(degrees=(0, 360), translate=(0.1, 0.1), scale=(0.95, 1.05))
     affine_img = affine_transformer(img).type(torch.LongTensor)
     affine_img = torch.moveaxis(affine_img, 0, -1)
@@ -15,13 +16,15 @@ def augmentation(img):
 def main(rounds):
     IP_DIR = "C:/Users/Tiana/Documents/ZB4171/ALL Classification/eg_data/" # directory of all image files
     OP_DIR = "C:/Users/Tiana/Documents/ZB4171/ALL Classification/test_augment/" # directory of augmented images
-
+    
+    # create output directory if it does not exist
     if not os.path.exists(OP_DIR):
         os.makedirs(OP_DIR)
 
     file_list = os.listdir(IP_DIR)
     for file in tqdm(file_list):
-
+        
+        # check if file is a bmp file, else skip
         if not 'bmp' in file:
             continue
 
