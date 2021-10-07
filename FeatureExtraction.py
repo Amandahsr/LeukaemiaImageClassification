@@ -24,3 +24,4 @@ lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 #Run training of model to obtain output layer.
 trained_model = train_model(base_model, criterion, optimizer,
                          lr_scheduler, num_epochs=epochs)
+
