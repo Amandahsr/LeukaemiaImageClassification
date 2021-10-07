@@ -1,7 +1,7 @@
 Replicating the file structure from the main dataset for manipulation into the desired format for our analysis.
 
-File structure:
-  data_small
+
+    data_small:
   
     |- testing_data
 
