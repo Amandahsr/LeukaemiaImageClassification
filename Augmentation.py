@@ -1,3 +1,4 @@
+#This script does data augmentation on datasets.
 import os
 import torch
 import torchvision.transforms as transforms
