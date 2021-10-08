@@ -69,5 +69,5 @@ def augment(rounds, ip_dir="../Data_main/images/", op_dir="../Data_main/temp_aug
     return aug_df
 
 # TESTCASE #
-aug_df = augment(rounds=5, op_dir="../test_augment/", labels="../Data_main/train_labels.csv")
-print(aug_df)
+# aug_df = augment(rounds=5, op_dir="../test_augment/", labels="../Data_main/train_labels.csv")
+# print(aug_df)
