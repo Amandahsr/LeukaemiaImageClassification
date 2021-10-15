@@ -1,14 +1,12 @@
-import pandas as pd
-from torch.utils.data import DataLoader, Dataset
-
+#Custom CellsDataset class for dataloader to process images.
 class CellsDataset(Dataset):
+
     def __init__(self, label_file, img_dir):
         try:
-            # label file specified as csv format
-            self.img_labels = pd.read_csv(label_file)
+            self.img_labels = pd.read_csv(label_file) #Label csv files.
         except:
-            # label file specified as df
-            self.img_labels = label_file
+            self.img_labels = label_file #Label df files.
+
         self.img_dir = img_dir
 
     def __len__(self):
