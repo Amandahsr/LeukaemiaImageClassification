@@ -43,6 +43,8 @@ for fold, (train_idx, valid_idx) in enumerate(strat_kfold.split(X, y)):
     # dataloader for input into the model (need to integrate into correct format for efficientnet)
     valid_loader = torch.utils.data.DataLoader(valid_set, batch_size=batch_size, shuffle=True)
     train_loader = torch.utils.data.DataLoader(train_aug_set, batch_size=batch_size, shuffle=True)
+    # input takes in dictionary format
+    dataloaders = {'training': train_loader,'validation': valid_loader}
 
     """
     - put efficientnet model here
@@ -51,5 +53,3 @@ for fold, (train_idx, valid_idx) in enumerate(strat_kfold.split(X, y)):
     """
     # delete the augmented training dir bef training on next fold to save disk space
     shutil.rmtree(aug_dir)
-    
-pass
