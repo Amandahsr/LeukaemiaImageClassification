@@ -1,16 +1,6 @@
-import torch
-import shutil
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import StratifiedKFold
-from Augmentation import augment
 from DataSet import CellsDataset
 
-# LOADING INTO PYTORCH + STRATIFIED K FOLD #
-seed = torch.manual_seed(42)
-# seed = 42
-no_fold = 5
-batch_size = 10
+#Initialise labels file.
 label_csv = "../Data_main/train_labels.csv"
 
 # Define kfold cross validator
