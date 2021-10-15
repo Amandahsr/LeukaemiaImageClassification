@@ -1,7 +1,9 @@
 ##This script imports datasets from the Leukemia Classification challenge directly from Kaggle into Google Colab.
-! pip install -q kaggle
 
-#Upload API token file downloaded from Kaggle
+#Mount google drive to store datasets and results in.
+drive.mount('/content/drive')
+
+#Upload API token file downloaded from Kaggle website
 from google.colab import files
 files.upload()
 
@@ -14,7 +16,7 @@ files.upload()
 ! kaggle datasets list
 
 #Download datasets from Leukaemia challenge
-#! kaggle datasets download -d andrewmvd/leukemia-classification
+! kaggle datasets download -d andrewmvd/leukemia-classification
 
 #Make directory to unzip and store downloaded datasets
 ! mkdir datasets
