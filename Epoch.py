@@ -1,8 +1,8 @@
-#This script outlines training class that performs training & validation phases for specified number of epochs.
-
-def training_model(model, criterion, optimizer, scheduler, num_epochs=epochs):
+#Epoch code.
+def train_model(model, criterion, optimizer, scheduler, num_epochs=epochs):
     since = time.time()
 
+    #Initialise model.
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
 
@@ -25,48 +25,50 @@ def training_model(model, criterion, optimizer, scheduler, num_epochs=epochs):
                 inputs = inputs.to(device)
                 labels = labels.to(device)
 
-                # zero the parameter gradients
+                #Set parameter gradients to 0.
                 optimizer.zero_grad()
 
-                # forward
-                # track history if only in train
+                #Iterate forward.
+                #Track history only if in training phase.
                 with torch.set_grad_enabled(phase == 'training'):
                     outputs = model(inputs)
                     _, preds = torch.max(outputs, 1)
                     loss = criterion(outputs, labels)
 
-                    # backward propagate + update parameters only if in training phase
+                    #Backward propagate. 
+                    #Update parameters only if in training phase.
                     if phase == 'training':
                         loss.backward()
                         optimizer.step()
 
-                # Output statistics about the training
+                #Output training statistics.
                 running_loss += loss.item() * inputs.size(0)
                 running_corrects += torch.sum(preds == labels.data)
             
             if phase == 'training':
                 scheduler.step()
 
+            #Calculates epoch statistics.
             epoch_loss = running_loss / dataset_sizes[phase]
             epoch_acc = running_corrects.double() / dataset_sizes[phase]
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
 
-            # deep copy the model
+            #Initialise model if in validation phase and epoch has best accuracy.
             if phase == 'validation' and epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
 
         print()
     
-    #Output runtime on model
+    #Output runtime of model.
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
     print('Best val Acc: {:4f}'.format(best_acc))
 
-    #Load weights of model
+    #Load weights of model.
     model.load_state_dict(best_model_wts)
-    return model
 
+    return model
