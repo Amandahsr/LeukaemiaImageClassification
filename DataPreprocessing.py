@@ -23,6 +23,7 @@ valid_df = pd.read_csv(INPUT_DIR + "validation_data/C-NMC_test_prelim_phase_data
 valid_l = []
 for idx, row in valid_df.iterrows():
     id = row["Patient_ID"]
+    id = id.split('.')[0] + ".png" # convert to png image
     patient_no = id.split('_')[1]
     filename = row["new_names"]
     labels = row["labels"]
@@ -39,7 +40,8 @@ train_l = []
 for dir, sub, files in os.walk(INPUT_DIR + "training_data"):
     for bmp in files:
         ip_filepath = dir +"/"+ bmp
-        op_filepath = OUTPUT_DIR + "images/" + bmp
+        png = bmp.split('.'[0]) + ".png"
+        op_filepath = OUTPUT_DIR + "images/" + png
 
         # copy .bmp into images folder
         if not os.path.exists(op_filepath):
@@ -48,7 +50,7 @@ for dir, sub, files in os.walk(INPUT_DIR + "training_data"):
         # append into csv file
         label = 1 if ("all" in bmp) else 0
         patient_no = bmp.split('_')[1]
-        train_l.append([patient_no, bmp, label])
+        train_l.append([patient_no, png, label])
 
 train_df = pd.DataFrame(train_l, columns=["Patient_no", "Patient_ID", "labels"])
 
