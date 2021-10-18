@@ -57,34 +57,34 @@ merge_df.to_csv(OUTPUT_DIR + 'labels.csv')
 # Total patients: 15
 # ---------------------------------------------
 
-# Look at no. of images per patient by Patient_ID
-patient_id = merge_df["Patient_ID"]
-all_count = []
-hem_count = []
-for id in patient_id:
-    pt = id.split('_')[1]
-    if 'H' in pt:
-        hem_count.append(int(pt[1:]))
-    else:
-        all_count.append(int(pt))
+# # Look at no. of images per patient by Patient_ID
+# patient_id = merge_df["Patient_ID"]
+# all_count = []
+# hem_count = []
+# for id in patient_id:
+#     pt = id.split('_')[1]
+#     if 'H' in pt:
+#         hem_count.append(int(pt[1:]))
+#     else:
+#         all_count.append(int(pt))
 
-print("Total ALL: {} ; Total HEM: {}".format(len(all_count), len(hem_count)))
+# print("Total ALL: {} ; Total HEM: {}".format(len(all_count), len(hem_count)))
 
-# Visualization
-plt.hist(all_count, bins=78)
-plt.hist(hem_count, bins=48)
-plt.title('Patient_ID distribution')
-plt.xlabel("Patient_ID")
-plt.ylabel("Frequency")
-# plt.show()
-# plt.savefig("Patient_ID_distribution.png")
+# # Visualization
+# plt.hist(all_count, bins=78)
+# plt.hist(hem_count, bins=48)
+# plt.title('Patient_ID distribution')
+# plt.xlabel("Patient_ID")
+# plt.ylabel("Frequency")
+# # plt.show()
+# # plt.savefig("Patient_ID_distribution.png")
 
-# Enumerate frequencies
-import collections
-all_freq = collections.Counter(all_count)
-hem_freq = collections.Counter(hem_count)
-# print(all_freq)
-# print(hem_freq)
+# # Enumerate frequencies
+# import collections
+# all_freq = collections.Counter(all_count)
+# hem_freq = collections.Counter(hem_count)
+# # print(all_freq)
+# # print(hem_freq)
 
 # pick out images from ALL (11) and HEM (4) based on Patient_ID frequencies
 test_pick = ['26', '35', '44', '33', '24', '27', '25', '46', '49', '37', '31', 'H12', 'H17', 'H2', 'H15']
