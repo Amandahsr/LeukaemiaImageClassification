@@ -10,6 +10,12 @@ import matplotlib.pyplot as plt
 INPUT_DIR = "/content/ZB4171_LeukemiaImageClassification-Ongoing-/Data Subset/"
 OUTPUT_DIR = "/content/ZB4171_LeukemiaImageClassification-Ongoing-/Data_main/"
 
+if not os.path.exists(OUTPUT_DIR):
+    os.mkdir(OUTPUT_DIR)
+    os.mkdir(OUTPUT_DIR + "images/")
+    os.mkdir(OUTPUT_DIR + "held_out_test/")
+    os.mkdir(OUTPUT_DIR + "held_out_test/test_images")
+
 # (1) Process validation_data
 valid_filepath = INPUT_DIR + "validation_data/C-NMC_test_prelim_phase_data/"
 valid_df = pd.read_csv(INPUT_DIR + "validation_data/C-NMC_test_prelim_phase_data_labels.csv")
