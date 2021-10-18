@@ -6,8 +6,9 @@ import matplotlib.pyplot as plt
 # ---------------------------------------------
 # REFORMAT DIRECTORY FOR TRAINING #
 # ---------------------------------------------
-INPUT_DIR = "../data_small/"
-OUTPUT_DIR = "../Data_main/"
+# as per google colab file structure
+INPUT_DIR = "/content/ZB4171_LeukemiaImageClassification-Ongoing-/Data Subset/"
+OUTPUT_DIR = "/content/ZB4171_LeukemiaImageClassification-Ongoing-/Data_main/"
 
 # (1) Process validation_data
 valid_filepath = INPUT_DIR + "validation_data/C-NMC_test_prelim_phase_data/"
