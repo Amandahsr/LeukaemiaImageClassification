@@ -2,6 +2,7 @@ import os
 import shutil
 import pandas as pd
 import matplotlib.pyplot as plt
+from PIL import Image
 
 # ---------------------------------------------
 # REFORMAT DIRECTORY FOR TRAINING #
@@ -30,7 +31,8 @@ for idx, row in valid_df.iterrows():
     # rename validation_data image filename: ({int}.bmp) to (UID_{id}_{P}_{N}_{C}_{'all/hem'})
     # copy .bmp into images folder
     if os.path.exists(valid_filepath + filename):
-        shutil.copy(valid_filepath + filename, OUTPUT_DIR + "images/" + id)
+      Image.open(valid_filepath + filename).save(OUTPUT_DIR + "images/" + id)
+        # shutil.copy(valid_filepath + filename, OUTPUT_DIR + "images/" + id)
     valid_l.append([patient_no, id, labels])
 
 valid_df = pd.DataFrame(valid_l, columns=["Patient_no", "Patient_ID", "labels"])
@@ -45,7 +47,8 @@ for dir, sub, files in os.walk(INPUT_DIR + "training_data"):
 
         # copy .bmp into images folder
         if not os.path.exists(op_filepath):
-            shutil.copy(ip_filepath, op_filepath)
+            # shutil.copy(ip_filepath, op_filepath)
+            Image.open(ip_filepath).save(op_filepath)
 
         # append into csv file
         label = 1 if ("all" in bmp) else 0
