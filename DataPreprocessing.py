@@ -40,7 +40,7 @@ train_l = []
 for dir, sub, files in os.walk(INPUT_DIR + "training_data"):
     for bmp in files:
         ip_filepath = dir +"/"+ bmp
-        png = bmp.split('.'[0]) + ".png"
+        png = bmp.split('.')[0] + ".png"
         op_filepath = OUTPUT_DIR + "images/" + png
 
         # copy .bmp into images folder
