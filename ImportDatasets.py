@@ -21,3 +21,9 @@ files.upload()
 #Make directory to unzip and store downloaded datasets
 ! mkdir datasets
 ! unzip leukemia-classification.zip -d datasets
+
+#Data subset for debugging - import from Github
+!git clone https://github.com/Amandahsr/ZB4171_LeukemiaImageClassification-Ongoing-.git
+
+#Preprocess into new file structure: Data_main
+!python /content/ZB4171_LeukemiaImageClassification-Ongoing-/DataPreprocessing.py
