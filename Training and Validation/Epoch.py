@@ -1,4 +1,4 @@
-#Epoch code.
+#Training Function.
 def train_model(model, criterion, optimizer, scheduler, num_epochs=epochs):
     since = time.time()
 
@@ -14,8 +14,10 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=epochs):
         for phase in ['training', 'validation']:
             if phase == 'training':
                 model.train()  # Set model to training mode
+                
             else:
                 model.eval()   # Set model to validation mode
+                
 
             running_loss = 0.0
             running_corrects = 0
@@ -32,8 +34,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=epochs):
                 #Track history only if in training phase.
                 with torch.set_grad_enabled(phase == 'training'):
                     outputs = model(inputs)
-                    _, preds = torch.max(outputs, 1)
-                    loss = criterion(outputs, labels)
+                    soft_preds = torch.softmax(outputs, dim = -1) #Generate soft labels
+                    max_prob, hard_preds = torch.max(soft_preds, dim = -1)
+                    loss = criterion(soft_preds, labels)
 
                     #Backward propagate. 
                     #Update parameters only if in training phase.
@@ -43,7 +46,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=epochs):
 
                 #Output training statistics.
                 running_loss += loss.item() * inputs.size(0)
-                running_corrects += torch.sum(preds == labels.data)
+                running_corrects += torch.sum(hard_preds == labels.data)
             
             if phase == 'training':
                 scheduler.step()
