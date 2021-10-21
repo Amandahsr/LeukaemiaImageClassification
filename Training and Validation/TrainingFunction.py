@@ -1,4 +1,4 @@
-#Training Function.
+#Training function. Runs a specified number of epochs.
 def train_model(model, criterion, optimizer, scheduler, num_epochs=epochs):
     since = time.time()
 
