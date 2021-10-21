@@ -1,9 +1,15 @@
-#Import pre-trained b0 efficientnet - loads pre-trained weights for base model
-base_model = EfficientNet.from_pretrained('efficientnet-b0')
+# Take a sample image
+image = plt.imread("/content/ZB4171_LeukemiaImageClassification-Ongoing-/Data_main/images/UID_13_10_1_all.png")
+image = np.moveaxis(image, -1, 0)
+image = torch.from_numpy(image).type(torch.FloatTensor)
+image = image.unsqueeze(0)
 
-#Specify number of input and output. 
-number_of_features = base_model.extract_features(image)
-base_model.fc = nn.Linear(number_of_features, output_layer)
+
+# #Specify number output layer.
+base_model = BaseEfficientNet()
+output = base_model(image)
+print(f"Output shape: {output.shape}")
+print(f"Output: {output}")
 
 #Feed model to CPU.
 base_model = base_model.to(device)
