@@ -1,5 +1,5 @@
 #Testing function.
-def test_model(dataloader, model, criterion):
+def test_model(dataloader, model):
   #Create empty confusion matrix.
   confusion_matrix = np.zeros((2,2),dtype=int)
 
@@ -58,4 +58,4 @@ test_set = CellsDataset(test_df, "/content/ZB4171_LeukemiaImageClassification-On
 test_loader = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=True)
 
 #Test model.
-test_model(test_loader, base_model, criterion)
+test_model(test_loader, base_model)
