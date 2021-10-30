@@ -48,14 +48,3 @@ def test_model(dataloader, model):
     print('PPV: %d %%' % (PPV))
     print('NPV: %d %%' % (NPV))
     print('F1 Score: %d %%' % (F1))
-
-#Initialise testing set files
-test_path = "/content/ZB4171_LeukemiaImageClassification-Ongoing-/Data_main/held_out_test/test_labels.csv"
-test_df = pd.read_csv(test_path)[["Patient_no", "Patient_ID", "labels"]]
-test_set = CellsDataset(test_df, "/content/ZB4171_LeukemiaImageClassification-Ongoing-/Data_main/held_out_test/test_images")
-
-#Dataloader for input into the model.
-test_loader = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=True)
-
-#Test model.
-test_model(test_loader, base_model)
