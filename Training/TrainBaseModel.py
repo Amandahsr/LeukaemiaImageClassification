@@ -1,31 +1,77 @@
-#K-fold cross validation code that trains base EfficientNet model.
-#Data augmentation is removed until we gauge how much space we have.
-for fold, (train_idx, valid_idx) in enumerate(strat_kfold.split(X, y)):
-    print("FOLD {}".format(fold))
+#Training Function.
+def train_baseModel(model, criterion, optimizer, scheduler, num_epochs=epochs, fold):
+    since = time.time()
 
-    train_df = label_df.iloc[train_idx][["Patient_no", "Patient_ID", "labels"]]
-    valid_df = label_df.iloc[valid_idx][["Patient_no", "Patient_ID", "labels"]]
-    train_set = CellsDataset(train_df, "/content/ZB4171_LeukemiaImageClassification-Ongoing-/Data_main/images")
-    valid_set = CellsDataset(valid_df, "/content/ZB4171_LeukemiaImageClassification-Ongoing-/Data_main/images")
+    #Initialise model.
+    best_model_wts = copy.deepcopy(model.state_dict())
+    best_acc = 0.0
 
-    #Add augmentation data to original training set.
-    # aug_dir = "../test_augment/"
-    # aug_df = augment(rounds=aug_rounds, op_dir=aug_dir, labels=train_df)
-    # aug_set = CellsDataset(aug_df, aug_dir)
-    # train_aug_set = torch.utils.data.ConcatDataset([train_set, aug_set])
+    for epoch in range(num_epochs):
+        print('Epoch {}/{}'.format(epoch+1, num_epochs))
+        print('-' * 10)
+        
+        # Each epoch has a training and validation phase
+        for phase in ['training', 'validation']:
+            if phase == 'training':
+                model.train()  # Set model to training mode
+                
+            else:
+                model.eval()   # Set model to validation mode
+                
+            running_loss = 0.0
+            running_corrects = 0
 
-    #Dataloader for input into the model (need to integrate into correct format for efficientnet).
-    valid_loader = torch.utils.data.DataLoader(valid_set, batch_size=batch_size, shuffle=True)
-    train_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True)
+            # Iterate over data.
+            for inputs, labels in dataloaders[phase]:
+                inputs = inputs.to(device)
+                labels = labels.to(device)
+
+                #Set parameter gradients to 0.
+                optimizer.zero_grad()
+
+                #Iterate forward.
+                #Track history only if in training phase.
+                with torch.set_grad_enabled(phase == 'training'):
+                    outputs = model(inputs)
+                    soft_preds = torch.softmax(outputs, dim = -1) #Generate soft labels
+                    max_prob, hard_preds = torch.max(soft_preds, dim = -1)
+                    loss = criterion(soft_preds, labels)
+
+                    #Backward propagate. 
+                    #Update parameters only if in training phase.
+                    if phase == 'training':
+                        loss.backward()
+                        optimizer.step()
+
+                #Output training statistics.
+                running_loss += loss.item() * inputs.size(0)
+                running_corrects += torch.sum(hard_preds == labels.data)
+            
+            if phase == 'training':
+                scheduler.step()
+
+            #Calculates epoch statistics.
+            epoch_loss = running_loss / dataset_sizes[phase]
+            epoch_acc = running_corrects.double() / dataset_sizes[phase]
+
+            print('{} Loss: {:.4f} Acc: {:.4f}'.format(
+                phase, epoch_loss, epoch_acc))
+
+            #Save best model weights if epoch gives best accuracy
+            if phase == 'validation' and epoch_acc > best_acc:
+                best_acc = epoch_acc
+                best_model_wts = copy.deepcopy(model.state_dict())
+
+        print()
     
-    # input takes in dictionary format
-    # this part is combining our CellsDataset class with the input format for effiecientnet
-    dataloaders = {'training': train_loader, 'validation': valid_loader}
-    dataset_sizes = {'training': len(train_set), 'validation': len(valid_set)}
-    class_names = [0, 1] # hard code labels based on labels in csv
-    
-    # train data on n epochs
-    train_model(base_model, criterion, optimizer, lr_scheduler, num_epochs=epochs)
+    #Output runtime of model.
+    time_elapsed = time.time() - since
+    print('Training complete in {:.0f}m {:.0f}s'.format(
+        time_elapsed // 60, time_elapsed % 60))
+    print('Best val Acc: {:4f}'.format(best_acc))
 
-    #Delete augmented training directory before next training fold to save disk space.
-    #shutil.rmtree(aug_dir)
+    #Save weights of the best epoch model into training directory.
+    training_path = f"/content/BaseModel/training_results/weights/fold{fold}_weights.pth"
+    torch.save(best_model_wts, training_path)
+
+    return model
