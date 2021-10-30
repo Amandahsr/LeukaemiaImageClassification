@@ -21,6 +21,7 @@ import pandas as pd
 import json
 from PIL import Image
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.optim as optim
 from torch.optim import lr_scheduler
 from efficientnet_pytorch import EfficientNet
