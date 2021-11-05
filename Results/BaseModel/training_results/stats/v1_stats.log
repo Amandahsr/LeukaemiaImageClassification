@@ -1,0 +1,42 @@
+fold1
+Accuracy: 86.164043 %
+Sensitivity: 94.771242 %
+Specificity: 58.823529 %
+PPV: 87.967644 %
+NPV: 77.981651 %
+F1 Score: 91.242790 %
+fold2
+Accuracy: 85.211268 %
+Sensitivity: 91.612200 %
+Specificity: 64.878893 %
+PPV: 89.230769 %
+NPV: 70.888469 %
+F1 Score: 90.405805 %
+fold3
+Accuracy: 84.921292 %
+Sensitivity: 91.503268 %
+Specificity: 64.013841 %
+PPV: 88.983051 %
+NPV: 70.342205 %
+F1 Score: 90.225564 %
+fold4
+Accuracy: 84.962717 %
+Sensitivity: 91.721133 %
+Specificity: 63.494810 %
+PPV: 88.865435 %
+NPV: 70.712909 %
+F1 Score: 90.270705 %
+fold5
+Accuracy: 85.128418 %
+Sensitivity: 91.285403 %
+Specificity: 65.570934 %
+PPV: 89.386667 %
+NPV: 70.315399 %
+F1 Score: 90.326058 %
+ENSEMBL MODEL:
+Accuracy: 73.363712 %
+Sensitivity: 72.167756 %
+Specificity: 77.162630 %
+PPV: 90.940288 %
+NPV: 46.603971 %
+F1 Score: 80.473732 %
