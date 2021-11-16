@@ -2,7 +2,7 @@
 
 The Leukemia Image Classification project is a joint collaboration between [Amanda Ho](https://github.com/Amandahsr) and [Tiana Chen](https://github.com/Tianananana). 
 
-This project aims to build an image classification model for leukaemia cell detection in microscopic images. This project is built upon the [Leukemia Classification Challenge](https://www.kaggle.com/andrewmvd/leukemia-classification) available in Kaggle. All code is implemented and tested on Google Colab using Pytorch packages.
+This project aims to build an image classification model for leukemia cell detection in microscopic images. This project is built upon the [Leukemia Classification Challenge](https://www.kaggle.com/andrewmvd/leukemia-classification) available in Kaggle. All code is implemented and tested on Google Colab using Pytorch packages.
 
 Methodology:
 1. Training and validation datasets are merged and split into training and testing sets via patient ID.
