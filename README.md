@@ -1,14 +1,15 @@
 # Leukemia Image Classification
 
-A collaborative effort between Amanda Ho and Tiana Chen to build an image classification model for leukaemia cell detection in microscopic images. This project is built upon the open challenge [Leukemia Classification](https://www.kaggle.com/andrewmvd/leukemia-classification) in Kaggle.
+This project aims to build an image classification model for leukaemia cell detection in microscopic images. This project is built upon the [Leukemia Classification Challenge](https://www.kaggle.com/andrewmvd/leukemia-classification) available in Kaggle.
 
-Project code is implemented on Google Colab using Pytorch libraries.
+All code is implemented and tested on Google Colab using Pytorch packages.
 
 Methodology:
-1. Import leukemia image data to Google Colab from Kaggle.
-2. Perform data augmentation to generate more data for training, validation and testing. (On hold until memory is gauged)
-3. Train using pre-trained EfficientNet-B0 model to feature extract from leukemia dataset. 
-    - Stratified k-fold cross validation + epoch is implemented, using patient ID to split training and validation phases in each epoch.
-    - Output layer is changed to binary classification.
-5. Implement Meta-Pseudo Label model using base EfficientNet model.
-6. Carry out testing on base EfficientNet model and Meta-Pseudo model.
+1. Training and validation datasets are merged and split into training and testing sets via patient ID.
+2. EfficientNet models are trained using K-fold cross validation and nested epochs.
+3. Ensemble EfficientNet model is implemented using the trained EfficientNet models as base models. Ensemble model uses majority voting as voting system.
+4. As a further improvement, Noisy Student training is implemented in addition to EfficientNet model. Noisy student training is carried out within a K-fold cross validation and nested epoch loop.
+5. Ensemble Noisy Student model is implemented using the trained Noisy Student models as base models. Ensemble model uses majority voting as voting system.
+6. The 4 models implemented in the project (EfficientNet, Ensemble EfficientNet, Noisy Student, Ensemble Noisy Student) is tested and evaluated for performance.
+
+All code implemented in this leukemia image classification project is a joint collaboration between [Amanda Ho](https://github.com/Amandahsr) and Tiana Chen. 
