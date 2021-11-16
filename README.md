@@ -11,5 +11,6 @@ Methodology:
 4. As a further improvement, Noisy Student training is implemented in addition to EfficientNet model. Noisy student training is carried out within a K-fold cross validation and nested epoch loop.
 5. Ensemble Noisy Student model is implemented using the trained Noisy Student models as base models. Ensemble model uses majority voting as voting system.
 6. The 4 models implemented in the project (EfficientNet, Ensemble EfficientNet, Noisy Student, Ensemble Noisy Student) is tested and evaluated for performance.
+![](https://github.com/Amandahsr/ZB4171_LeukemiaImageClassification-Ongoing-/blob/main/Project%20Overview.png)
 
 All code implemented in this leukemia image classification project is a joint collaboration between [Amanda Ho](https://github.com/Amandahsr) and Tiana Chen. 
