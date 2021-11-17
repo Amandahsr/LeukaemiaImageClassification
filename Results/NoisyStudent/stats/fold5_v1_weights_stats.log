@@ -1,0 +1,11 @@
+True Positives: 1612
+False Positives: 224
+False Negatives: 136
+True Negatives: 442
+
+Accuracy: 85.086993 %
+Sensitivity: 87.799564 %
+Specificity: 76.470588 %
+PPV: 92.219680 %
+NPV: 66.366366 %
+F1 Score: 89.955357 %

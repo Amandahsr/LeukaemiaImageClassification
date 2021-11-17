@@ -1,0 +1,12 @@
+ENSEMBLE MODEL:
+True Positives: 1760
+False Positives: 76
+False Negatives: 143
+True Negatives: 435
+
+Accuracy: 90.927920 %
+Sensitivity: 95.860566 %
+Specificity: 75.259516 %
+PPV: 92.485549 %
+NPV: 85.127202 %
+F1 Score: 94.142819 %
